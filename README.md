@@ -11,10 +11,10 @@ class Main {
 
 
     public static String calc(String input) throws Exception {
-        // Удаляем пробелы
+       
         input = input.replaceAll("\\s+", "");
 
-        // Регулярное выражение для проверки корректности ввода
+       
         Pattern pattern = Pattern.compile("^(I{1,3}|IV|V|VI|VII|VIII|IX|X)[\\+\\-\\*/](I{1,3}|IV|V|VI|VII|VIII|IX|X)$|^(10|[1-9])[\\+\\-\\*/](10|[1-9])$");
         Matcher matcher = pattern.matcher(input);
 
@@ -26,20 +26,20 @@ class Main {
         int num1, num2;
         String operator;
 
-        // Определяем, являются ли числа римскими или арабскими
+        
         if (input.matches("^(I{1,3}|IV|V|VI|VII|VIII|IX|X)[\\+\\-\\*/](I{1,3}|IV|V|VI|VII|VIII|IX|X)$")) {
             parts = input.split("[\\+\\-\\*/]");
             num1 = romanToArabic(parts[0]);
             num2 = romanToArabic(parts[1]);
-            operator = String.valueOf(input.charAt(parts[0].length())); // оператор
+            operator = String.valueOf(input.charAt(parts[0].length())); 
         } else {
             parts = input.split("[\\+\\-\\*/]");
             num1 = Integer.parseInt(parts[0]);
             num2 = Integer.parseInt(parts[1]);
-            operator = String.valueOf(input.charAt(parts[0].length())); // оператор
+            operator = String.valueOf(input.charAt(parts[0].length())); 
         }
 
-        // Выполнение арифметической операции
+       
         int result;
         switch (operator) {
             case "+":
@@ -55,18 +55,18 @@ class Main {
                 if (num2 == 0) {
                     throw new Exception("Деление на ноль.");
                 }
-                result = num1 / num2; // Оценка деления
+                result = num1 / num2; 
                 break;
             default:
                 throw new Exception("Неверный оператор.");
         }
 
-        // Проверка для римских чисел: результат не может быть меньше 1
+       
         if (input.matches("^(I{1,3}|IV|V|VI|VII|VIII|IX|X)[\\+\\-\\*/](I{1,3}|IV|V|VI|VII|VIII|IX|X)$") && result < 1) {
             throw new Exception("Результат должен быть больше нуля для римских чисел.");
         }
 
-        // Возврат результата в нужном формате
+      
         return input.matches("^(I{1,3}|IV|V|VI|VII|VIII|IX|X)[\\+\\-\\*/](I{1,3}|IV|V|VI|VII|VIII|IX|X)$") ? arabicToRoman(result) : String.valueOf(result);
     }
 
